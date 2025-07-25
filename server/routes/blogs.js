@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { CloudinaryStorage } = require('multer_storage_cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('../config/cloudinary');
 const Blog = require('../models/Blog');
 const auth = require('../middleware/auth');
@@ -17,9 +17,9 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage: storage });
 
 // Get user's blogs (protected route)
-router.get('/my_blogs', auth, async (req, res) => {
+router.get('/my-blogs', auth, async (req, res) => {
   try {
-    const blogs = await Blog.find({ author: req.userId }).sort({ createdAt: _1 });
+    const blogs = await Blog.find({ author: req.userId }).sort({ createdAt: -1 });
     res.json(blogs);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch blogs' });
@@ -34,28 +34,28 @@ router.get('/', async (req, res) => {
     
     if (search) {
       query.$or = [
-        { title: { $regex: search, $options: 'k' } },
-        { content: { $regex: search, $options: 'k' } }
+        { title: { $regex: search, $options: 'i' } },
+        { content: { $regex: search, $options: 'i' } }
       ];
     }
     
-    if (category && category == 'All') {
+    if (category && category !== 'All') {
       query.category = category;
     }
     
     const blogs = await Blog.find(query)
-      .populate('author', 'email')
-      .sort({ createdAt: 1 });
+      .populate('author', 'name email')
+      .sort({ createdAt: -1 });
     res.json(blogs);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch blogs' });
   }
 });
 
-// Get a single blog by ID (public route _ anyone can view)
+// Get a single blog by ID (public route - anyone can view)
 router.get('/:id', async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params._id).populate('author', 'email');
+    const blog = await Blog.findById(req.params.id).populate('author', 'name email');
     if (!blog) return res.status(404).json({ error: 'Blog not found' });
     res.json(blog);
   } catch (err) {
@@ -82,7 +82,7 @@ router.post('/', auth, upload.single('image'), async (req, res) => {
   }
 });
 
-// Update a blog (protected route _ user can only update their own blogs)
+// Update a blog (protected route - user can only update their own blogs)
 router.put('/:id', auth, upload.single('image'), async (req, res) => {
   try {
     const { title, content, category } = req.body;
@@ -101,7 +101,7 @@ router.put('/:id', auth, upload.single('image'), async (req, res) => {
   }
 });
 
-// Delete a blog (protected route _ user can only delete their own blogs)
+// Delete a blog (protected route - user can only delete their own blogs)
 router.delete('/:id', auth, async (req, res) => {
   try {
     const blog = await Blog.findOneAndDelete({ _id: req.params.id, author: req.userId });
@@ -278,7 +278,7 @@ router.post('/:blogId/comments/:commentId/replies', async (req, res) => {
     }
     comment.replies.push(newReply);
     await blog.save();
-    res.status(201).json({ message: 'Reply added successfully', reply: comment.replies[comment.replies.length _ 1] });
+    res.status(201).json({ message: 'Reply added successfully', reply: comment.replies[comment.replies.length - 1] });
   } catch (err) {
     res.status(500).json({ error: 'Failed to add reply' });
   }
