@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const auth = async (req, res, next) => {
   try {
-    const token = req.header('Authorization').replace('Bearer ', '');
+    const token = req.header('Authorizatio').replace('Bearer', '');
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret');
     req.userId = decoded.userId;
     next();
