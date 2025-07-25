@@ -130,7 +130,5 @@ Client will run on: `http://localhost:5173`
 
 * `npm start` – Start the Express 
 
-## 🌐 Connect with Me
 
-**Aditya Dhanraj**
-[GitHub](https://github.com/adityadhanraj24/) | [LinkedIn](https://www.linkedin.com/in/aditya-dhanraj-70a4981a7) 
+
