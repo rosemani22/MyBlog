@@ -133,4 +133,4 @@ Client will run on: `http://localhost:5173`
 ## 🌐 Connect with Me
 
 **Aditya Dhanraj**
-[GitHub](https://github.com/adityadhanraj24/) | [LinkedIn](www.linkedin.com/in/aditya-dhanraj-70a4981a7) 
+[GitHub](https://github.com/adityadhanraj24/) | [LinkedIn](https://www.linkedin.com/in/aditya-dhanraj-70a4981a7) 
