@@ -125,33 +125,10 @@ Client will run on: `http://localhost:5173`
 
 * `npm run dev` – Start Vite dev server
 * `npm run build` – Build app for production
-* `npm run lint` – Run ESLint checks
-* `npm run preview` – Preview production build
 
 ### Server (Backend)
 
-* `npm start` – Start the Express server
-* `npm test` – Run backend tests (placeholder)
-
----
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-1. Fork the repository
-2. Create your feature branch: `git checkout -b feature/AmazingFeature`
-3. Commit your changes: `git commit -m 'Add AmazingFeature'`
-4. Push to the branch: `git push origin feature/AmazingFeature`
-5. Open a pull request
-
----
-
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
----
+* `npm start` – Start the Express 
 
 ## 🌐 Connect with Me
 
